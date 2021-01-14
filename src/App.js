@@ -1,23 +1,47 @@
-import logo from './logo.svg';
+import React from 'react'
 import './App.css';
 
+function handleClick(e) {
+  if (e.target.tagName.toLowerCase() === 'button') {
+    console.log('e.target', e.target)
+  }
+}
+
 function App() {
+  React.useEffect(() => {
+    document.addEventListener('click', handleClick, false);
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Global Click Handling Demo</h1>
+
+      <ClickHandlingDemo />
+    </div>
+  );
+}
+
+function ClickHandlingDemo() {
+  const [showButton1, setShowButton1] = React.useState(false);
+  const [showButton2, setShowButton2] = React.useState(false);
+
+  return (
+    <div>
+      <button onClick={() => setShowButton1(!showButton1)}>
+        Toggle Button 1
+      </button>
+
+      <button onClick={() => setShowButton2(!showButton2)}>
+        Toggle Button 2
+      </button>
+
+      <hr />
+
+      <h2>Button 1 should be here:</h2>
+      {showButton1 && <button>Button 1</button>}
+
+      <h2>Button 2 should be here:</h2>
+      {showButton2 && <button>Button 2</button>}
     </div>
   );
 }
